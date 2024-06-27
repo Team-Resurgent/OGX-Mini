@@ -43,25 +43,25 @@ int main(void)
             driver->update_rumble(i, &gamepad(i));
         }
 
-        if (absolute_time_diff_us(last_time_gamepad_checked, get_absolute_time()) >= 500000) 
-        {
-            // check if digital buttons have changed
-            if (memcmp(&gamepad(0).buttons, &prev_gamepad_buttons, sizeof(GamepadButtons)) != 0)
-            {
-                memcpy(&prev_gamepad_buttons, &gamepad(0).buttons, sizeof(GamepadButtons));
-                last_time_gamepad_changed = get_absolute_time();
-            }
-            // haven't changed for 3 seconds
-            else if (absolute_time_diff_us(last_time_gamepad_changed, get_absolute_time()) >= 3000000) 
-            {
-                if (!change_input_mode(prev_gamepad_buttons))
-                {
-                    last_time_gamepad_changed = get_absolute_time();
-                }
-            }
+        // if (absolute_time_diff_us(last_time_gamepad_checked, get_absolute_time()) >= 500000) 
+        // {
+        //     // check if digital buttons have changed
+        //     if (memcmp(&gamepad(0).buttons, &prev_gamepad_buttons, sizeof(GamepadButtons)) != 0)
+        //     {
+        //         memcpy(&prev_gamepad_buttons, &gamepad(0).buttons, sizeof(GamepadButtons));
+        //         last_time_gamepad_changed = get_absolute_time();
+        //     }
+        //     // haven't changed for 3 seconds
+        //     else if (absolute_time_diff_us(last_time_gamepad_changed, get_absolute_time()) >= 3000000) 
+        //     {
+        //         if (!change_input_mode(prev_gamepad_buttons))
+        //         {
+        //             last_time_gamepad_changed = get_absolute_time();
+        //         }
+        //     }
 
-            last_time_gamepad_checked = get_absolute_time();
-        }
+        //     last_time_gamepad_checked = get_absolute_time();
+        // }
 
         sleep_ms(1);
         tud_task();

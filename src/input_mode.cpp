@@ -95,31 +95,36 @@ bool change_input_mode(GamepadButtons buttons)
     return mode_stored;
 }
 
+// enum InputMode get_input_mode()
+// {
+//     #if (CDC_DEBUG > 0)
+//         return INPUT_MODE_USBSERIAL;
+//     #endif
+
+//     const uint8_t *stored_value = (const uint8_t *)(XIP_BASE + FLASH_SIZE_BYTES - FLASH_SECTOR_SIZE);
+
+//     #if (MAX_GAMEPADS < 1)
+//     if ((*stored_value == INPUT_MODE_HID) || (*stored_value == INPUT_MODE_SWITCH))
+//     {
+//         return(enum InputMode)*stored_value;
+//     }
+//     else
+//     {
+//         return INPUT_MODE_HID;
+//     }
+//     #else
+//     if (*stored_value >= INPUT_MODE_XINPUT && *stored_value <= INPUT_MODE_XBOXORIGINAL)
+//     {
+//         return(enum InputMode)*stored_value;
+//     } 
+//     else 
+//     {
+//         return INPUT_MODE_XBOXORIGINAL;
+//     }
+//     #endif
+// }
+
 enum InputMode get_input_mode()
 {
-    #if (CDC_DEBUG > 0)
-        return INPUT_MODE_USBSERIAL;
-    #endif
-
-    const uint8_t *stored_value = (const uint8_t *)(XIP_BASE + FLASH_SIZE_BYTES - FLASH_SECTOR_SIZE);
-
-    #if (MAX_GAMEPADS < 1)
-    if ((*stored_value == INPUT_MODE_HID) || (*stored_value == INPUT_MODE_SWITCH))
-    {
-        return(enum InputMode)*stored_value;
-    }
-    else
-    {
-        return INPUT_MODE_HID;
-    }
-    #else
-    if (*stored_value >= INPUT_MODE_XINPUT && *stored_value <= INPUT_MODE_XBOXORIGINAL)
-    {
-        return(enum InputMode)*stored_value;
-    } 
-    else 
-    {
-        return INPUT_MODE_XBOXORIGINAL;
-    }
-    #endif
+    return INPUT_MODE_XBOXORIGINAL;
 }
