@@ -1,6 +1,8 @@
 # OGX-Mini
 ![OGX-Mini Boards](images/OGX-Mini-github.jpg "OGX-Mini Boards")
 
+NOTE: This version is modified to be xbox original only
+
 Firmware for the RP2040, capable of emulating gamepads for several consoles. The firmware now comes in 3 flavors, for the [Adafruit Feather USB Host board](https://www.adafruit.com/product/5723), the Pi Pico, and the Waveshare RP2040-Zero.
 
 ## Supported platforms
