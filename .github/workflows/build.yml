@@ -29,11 +29,21 @@ jobs:
           mkdir build
           mkdir output
 
-      - name: Build OGX-Mini - RP_ZERO
+# PI_PICO
+# PI_PICO2
+# PI_PICOW
+# PI_PICO2W
+# RP2040_ZERO
+# ADAFRUIT_FEATHER
+# ESP32_BLUEPAD32_I2C
+# ESP32_BLUERETRO_I2C
+# EXTERNAL_4CH_I2C
+
+      - name: Build OGX-Mini - RP2040_ZERO
         run: |
           cd ${{ github.workspace }}/build
           rm -fr ./*
-          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DOGXM_BOARD=RP_ZERO ../Firmware/RP2040
+          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DCMAKE_BUILD_TYPE=Release -DOGXM_BOARD=RP2040_ZERO -DMAX_GAMEPADS=1 ../Firmware/RP2040 
           cmake --build .
         #  cp ${{ github.workspace }}/build/picostation_pico1.uf2 ${{ github.workspace }}/output/picostation_pico1.uf2
 
