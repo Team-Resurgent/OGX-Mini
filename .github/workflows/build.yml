@@ -33,7 +33,7 @@ jobs:
         run: |
           cd ${{ github.workspace }}/build
           rm -fr ./*
-          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DOGXM_BOARD=RP_ZERO .. 
+          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DOGXM_BOARD=RP_ZERO ../Firmware/RP2040
           cmake --build .
         #  cp ${{ github.workspace }}/build/picostation_pico1.uf2 ${{ github.workspace }}/output/picostation_pico1.uf2
 
