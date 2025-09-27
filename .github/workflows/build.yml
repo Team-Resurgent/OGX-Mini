@@ -29,6 +29,38 @@ jobs:
           mkdir build
           mkdir output
 
+      - name: Build OGX-Mini - PI_PICO
+        run: |
+          cd ${{ github.workspace }}/build
+          rm -fr ./*
+          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DOGXM_BOARD=PI_PICO .. 
+          cmake --build .
+          cp ${{ github.workspace }}/build/OGX-Mini-v1.0.0a3-PI_PICO.uf2 ${{ github.workspace }}/output/OGX-Mini-v1.0.0a3-PI_PICO.uf2
+
+      - name: Build OGX-Mini - PI_PICO2
+        run: |
+          cd ${{ github.workspace }}/build
+          rm -fr ./*
+          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DOGXM_BOARD=PI_PICO2 .. 
+          cmake --build .
+          cp ${{ github.workspace }}/build/OGX-Mini-v1.0.0a3-PI_PICO2.uf2 ${{ github.workspace }}/output/OGX-Mini-v1.0.0a3-PI_PICO2.uf2
+
+      - name: Build OGX-Mini - PI_PICOw
+        run: |
+          cd ${{ github.workspace }}/build
+          rm -fr ./*
+          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DOGXM_BOARD=PI_PICOw .. 
+          cmake --build .
+          cp ${{ github.workspace }}/build/OGX-Mini-v1.0.0a3-PI_PICOw.uf2 ${{ github.workspace }}/output/OGX-Mini-v1.0.0a3-PI_PICOw.uf2
+
+      - name: Build OGX-Mini - PI_PICO2w
+        run: |
+          cd ${{ github.workspace }}/build
+          rm -fr ./*
+          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DOGXM_BOARD=PI_PICO2w .. 
+          cmake --build .
+          cp ${{ github.workspace }}/build/OGX-Mini-v1.0.0a3-PI_PICO2w.uf2 ${{ github.workspace }}/output/OGX-Mini-v1.0.0a3-PI_PICO2w.uf2
+
       - name: Build OGX-Mini - RP_ZERO
         run: |
           cd ${{ github.workspace }}/build
@@ -36,6 +68,38 @@ jobs:
           cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DOGXM_BOARD=RP_ZERO .. 
           cmake --build .
           cp ${{ github.workspace }}/build/OGX-Mini-v1.0.0a3-RP2040_ZERO.uf2 ${{ github.workspace }}/output/OGX-Mini-v1.0.0a3-RP2040_ZERO.uf2
+
+      - name: Build OGX-Mini - ADAFRUIT_FEATHER
+        run: |
+          cd ${{ github.workspace }}/build
+          rm -fr ./*
+          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DOGXM_BOARD=ADAFRUIT_FEATHER .. 
+          cmake --build .
+          cp ${{ github.workspace }}/build/OGX-Mini-v1.0.0a3-ADAFRUIT_FEATHER.uf2 ${{ github.workspace }}/output/OGX-Mini-v1.0.0a3-ADAFRUIT_FEATHER.uf2
+
+      - name: Build OGX-Mini - ESP32_BLUEPAD32_I2C
+        run: |
+          cd ${{ github.workspace }}/build
+          rm -fr ./*
+          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DOGXM_BOARD=ESP32_BLUEPAD32_I2C .. 
+          cmake --build .
+          cp ${{ github.workspace }}/build/OGX-Mini-v1.0.0a3-ESP32_BLUEPAD32_I2C.uf2 ${{ github.workspace }}/output/OGX-Mini-v1.0.0a3-ESP32_BLUEPAD32_I2C.uf2
+
+      - name: Build OGX-Mini - ESP32_BLUERETRO_I2C
+        run: |
+          cd ${{ github.workspace }}/build
+          rm -fr ./*
+          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DOGXM_BOARD=ESP32_BLUERETRO_I2C .. 
+          cmake --build .
+          cp ${{ github.workspace }}/build/OGX-Mini-v1.0.0a3-ESP32_BLUERETRO_I2C.uf2 ${{ github.workspace }}/output/OGX-Mini-v1.0.0a3-ESP32_BLUERETRO_I2C.uf2
+
+      - name: Build OGX-Mini - EXTERNAL_4CH_I2C
+        run: |
+          cd ${{ github.workspace }}/build
+          rm -fr ./*
+          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DOGXM_BOARD=EXTERNAL_4CH_I2C .. 
+          cmake --build .
+          cp ${{ github.workspace }}/build/OGX-Mini-v1.0.0a3-EXTERNAL_4CH_I2C.uf2 ${{ github.workspace }}/output/OGX-Mini-v1.0.0a3-EXTERNAL_4CH_I2C.uf2
 
       - name: List Files
         run: ls ${{ github.workspace }}/build
