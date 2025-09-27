@@ -1,42 +1,17 @@
-# Generated Cmake Pico project file
-
 cmake_minimum_required(VERSION 3.13)
 
+include(${CMAKE_CURRENT_LIST_DIR}/../FWDefines.cmake)
+
+set(CMAKE_C_COMPILER arm-none-eabi-gcc)
+set(CMAKE_CXX_COMPILER arm-none-eabi-g++)
+
 set(CMAKE_C_STANDARD 11)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# Initialise pico_sdk from installed location
-# (note this can come from environment, CMake cache etc)
-
-# == DO NOT EDIT THE FOLLOWING LINES for the Raspberry Pi Pico VS Code Extension to work ==
-if(WIN32)
-    set(USERHOME $ENV{USERPROFILE})
-else()
-    set(USERHOME $ENV{HOME})
-endif()
-set(sdkVersion 2.0.0)
-set(toolchainVersion 13_2_Rel1)
-set(picotoolVersion 2.0.0)
-set(picoVscode ${USERHOME}/.pico-sdk/cmake/pico-vscode.cmake)
-if (EXISTS ${picoVscode})
-    include(${picoVscode})
-endif()
-# ====================================================================================
-# cmake_minimum_required(VERSION 3.13)
-
-# include(${CMAKE_CURRENT_LIST_DIR}/../FWDefines.cmake)
-
-# set(CMAKE_C_COMPILER arm-none-eabi-gcc)
-# set(CMAKE_CXX_COMPILER arm-none-eabi-g++)
-
-# set(CMAKE_C_STANDARD 11)
-# set(CMAKE_CXX_STANDARD 20)
-# set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
-# set(SRC ${CMAKE_CURRENT_LIST_DIR}/src)
-# set(EXTERNAL_DIR ${CMAKE_CURRENT_LIST_DIR}/../external)
-# set(PICOSDK_VERSION_TAG "2.0.0")
+set(SRC ${CMAKE_CURRENT_LIST_DIR}/src)
+set(EXTERNAL_DIR ${CMAKE_CURRENT_LIST_DIR}/../external)
+set(PICOSDK_VERSION_TAG "2.1.0")
 
 include(${CMAKE_CURRENT_LIST_DIR}/../cmake/init_submodules.cmake)
 include(${CMAKE_CURRENT_LIST_DIR}/../cmake/patch_libs.cmake)
@@ -324,14 +299,6 @@ if(NOT EN_BLUETOOTH)
 endif()
 
 include(${PICO_SDK_PATH}/pico_sdk_init.cmake)
-
-message("PICO_SDK_VERSION_STRING: ${PICO_SDK_VERSION_STRING}")
-if(PICO_SDK_VERSION_STRING VERSION_LESS "${PICOSDK_VERSION_TAG}")
-    message(FATAL_ERROR 
-        "Raspberry Pi Pico SDK version ${PICOSDK_VERSION_TAG} (or later) required. 
-        Your version is ${PICO_SDK_VERSION_STRING}"
-    )
-endif()
 
 project(${FW_NAME} C CXX ASM)
 
