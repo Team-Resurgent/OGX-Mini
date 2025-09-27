@@ -33,7 +33,7 @@ jobs:
         run: |
           cd ${{ github.workspace }}/build
           rm -fr ./*
-          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DOGXM_BOARD=PI_PICO .. 
+          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DCMAKE_BUILD_TYPE=Release -DOGXM_BOARD=PI_PICO -DMAX_GAMEPADS=1 ../Firmware/RP2040 
           cmake --build .
           cp ${{ github.workspace }}/build/OGX-Mini-v1.0.0a3-PI_PICO.uf2 ${{ github.workspace }}/output/OGX-Mini-v1.0.0a3-PI_PICO.uf2
 
@@ -41,7 +41,7 @@ jobs:
         run: |
           cd ${{ github.workspace }}/build
           rm -fr ./*
-          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DOGXM_BOARD=PI_PICO2 .. 
+          ccmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DCMAKE_BUILD_TYPE=Release -DOGXM_BOARD=PI_PICO2 -DMAX_GAMEPADS=1 ../Firmware/RP2040
           cmake --build .
           cp ${{ github.workspace }}/build/OGX-Mini-v1.0.0a3-PI_PICO2.uf2 ${{ github.workspace }}/output/OGX-Mini-v1.0.0a3-PI_PICO2.uf2
 
@@ -49,7 +49,7 @@ jobs:
         run: |
           cd ${{ github.workspace }}/build
           rm -fr ./*
-          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DOGXM_BOARD=PI_PICOW .. 
+          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DCMAKE_BUILD_TYPE=Release -DOGXM_BOARD=PI_PICOW -DMAX_GAMEPADS=1 ../Firmware/RP2040
           cmake --build .
           cp ${{ github.workspace }}/build/OGX-Mini-v1.0.0a3-PI_PICOW.uf2 ${{ github.workspace }}/output/OGX-Mini-v1.0.0a3-PI_PICOW.uf2
 
@@ -57,15 +57,15 @@ jobs:
         run: |
           cd ${{ github.workspace }}/build
           rm -fr ./*
-          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DOGXM_BOARD=PI_PICO2W .. 
+          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DCMAKE_BUILD_TYPE=Release -DOGXM_BOARD=PI_PICO2W -DMAX_GAMEPADS=1 ../Firmware/RP2040
           cmake --build .
           cp ${{ github.workspace }}/build/OGX-Mini-v1.0.0a3-PI_PICO2W.uf2 ${{ github.workspace }}/output/OGX-Mini-v1.0.0a3-PI_PICO2W.uf2
 
-      - name: Build OGX-Mini - RP_ZERO
+      - name: Build OGX-Mini - RP2040_ZERO
         run: |
           cd ${{ github.workspace }}/build
           rm -fr ./*
-          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DOGXM_BOARD=RP_ZERO .. 
+          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DCMAKE_BUILD_TYPE=Release -DOGXM_BOARD=RP2040_ZERO -DMAX_GAMEPADS=1 ../Firmware/RP2040
           cmake --build .
           cp ${{ github.workspace }}/build/OGX-Mini-v1.0.0a3-RP2040_ZERO.uf2 ${{ github.workspace }}/output/OGX-Mini-v1.0.0a3-RP2040_ZERO.uf2
 
@@ -73,7 +73,7 @@ jobs:
         run: |
           cd ${{ github.workspace }}/build
           rm -fr ./*
-          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DOGXM_BOARD=ADAFRUIT_FEATHER .. 
+          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DCMAKE_BUILD_TYPE=Release -DOGXM_BOARD=ADAFRUIT_FEATHER -DMAX_GAMEPADS=1 ../Firmware/RP2040
           cmake --build .
           cp ${{ github.workspace }}/build/OGX-Mini-v1.0.0a3-ADAFRUIT_FEATHER.uf2 ${{ github.workspace }}/output/OGX-Mini-v1.0.0a3-ADAFRUIT_FEATHER.uf2
 
@@ -81,7 +81,7 @@ jobs:
         run: |
           cd ${{ github.workspace }}/build
           rm -fr ./*
-          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DOGXM_BOARD=ESP32_BLUEPAD32_I2C .. 
+          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DCMAKE_BUILD_TYPE=Release -DOGXM_BOARD=ESP32_BLUEPAD32_I2C -DMAX_GAMEPADS=1 ../Firmware/RP2040
           cmake --build .
           cp ${{ github.workspace }}/build/OGX-Mini-v1.0.0a3-ESP32_BLUEPAD32_I2C.uf2 ${{ github.workspace }}/output/OGX-Mini-v1.0.0a3-ESP32_BLUEPAD32_I2C.uf2
 
@@ -89,7 +89,7 @@ jobs:
         run: |
           cd ${{ github.workspace }}/build
           rm -fr ./*
-          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DOGXM_BOARD=ESP32_BLUERETRO_I2C .. 
+          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DCMAKE_BUILD_TYPE=Release -DOGXM_BOARD=ESP32_BLUERETRO_I2C -DMAX_GAMEPADS=1 ../Firmware/RP2040
           cmake --build .
           cp ${{ github.workspace }}/build/OGX-Mini-v1.0.0a3-ESP32_BLUERETRO_I2C.uf2 ${{ github.workspace }}/output/OGX-Mini-v1.0.0a3-ESP32_BLUERETRO_I2C.uf2
 
@@ -97,7 +97,7 @@ jobs:
         run: |
           cd ${{ github.workspace }}/build
           rm -fr ./*
-          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DOGXM_BOARD=EXTERNAL_4CH_I2C .. 
+          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DCMAKE_BUILD_TYPE=Release -DOGXM_BOARD=EXTERNAL_4CH_I2C -DMAX_GAMEPADS=1 ../Firmware/RP2040
           cmake --build .
           cp ${{ github.workspace }}/build/OGX-Mini-v1.0.0a3-EXTERNAL_4CH_I2C.uf2 ${{ github.workspace }}/output/OGX-Mini-v1.0.0a3-EXTERNAL_4CH_I2C.uf2
 
