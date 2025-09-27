@@ -45,21 +45,21 @@ jobs:
           cmake --build .
           cp ${{ github.workspace }}/build/OGX-Mini-v1.0.0a3-PI_PICO2.uf2 ${{ github.workspace }}/output/OGX-Mini-v1.0.0a3-PI_PICO2.uf2
 
-      - name: Build OGX-Mini - PI_PICOw
+      - name: Build OGX-Mini - PI_PICOW
         run: |
           cd ${{ github.workspace }}/build
           rm -fr ./*
-          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DOGXM_BOARD=PI_PICOw .. 
+          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DOGXM_BOARD=PI_PICOW .. 
           cmake --build .
-          cp ${{ github.workspace }}/build/OGX-Mini-v1.0.0a3-PI_PICOw.uf2 ${{ github.workspace }}/output/OGX-Mini-v1.0.0a3-PI_PICOw.uf2
+          cp ${{ github.workspace }}/build/OGX-Mini-v1.0.0a3-PI_PICOW.uf2 ${{ github.workspace }}/output/OGX-Mini-v1.0.0a3-PI_PICOW.uf2
 
-      - name: Build OGX-Mini - PI_PICO2w
+      - name: Build OGX-Mini - PI_PICO2W
         run: |
           cd ${{ github.workspace }}/build
           rm -fr ./*
-          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DOGXM_BOARD=PI_PICO2w .. 
+          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DOGXM_BOARD=PI_PICO2W .. 
           cmake --build .
-          cp ${{ github.workspace }}/build/OGX-Mini-v1.0.0a3-PI_PICO2w.uf2 ${{ github.workspace }}/output/OGX-Mini-v1.0.0a3-PI_PICO2w.uf2
+          cp ${{ github.workspace }}/build/OGX-Mini-v1.0.0a3-PI_PICO2W.uf2 ${{ github.workspace }}/output/OGX-Mini-v1.0.0a3-PI_PICO2W.uf2
 
       - name: Build OGX-Mini - RP_ZERO
         run: |
