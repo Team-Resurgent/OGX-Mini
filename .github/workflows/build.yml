@@ -35,7 +35,7 @@ jobs:
           rm -fr ./*
           cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DOGXM_BOARD=RP_ZERO .. 
           cmake --build .
-        #  cp ${{ github.workspace }}/build/picostation_pico1.uf2 ${{ github.workspace }}/output/picostation_pico1.uf2
+          cp ${{ github.workspace }}/build/OGX-Mini-v1.0.0a3-RP2040_ZERO.uf2 ${{ github.workspace }}/output/OGX-Mini-v1.0.0a3-RP2040_ZERO.uf2
 
       - name: List Files
         run: ls ${{ github.workspace }}/build
