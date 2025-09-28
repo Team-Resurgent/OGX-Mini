@@ -5,116 +5,84 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-    
   workflow_dispatch:
-  
+
 jobs:
   build:
-  
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        board:
+          - PI_PICO
+          - PI_PICO2
+          - PI_PICOW
+          - PI_PICO2W
+          - RP2040_ZERO
+          - ADAFRUIT_FEATHER
+          - ESP32_BLUEPAD32_I2C
+          - ESP32_BLUERETRO_I2C
+          - EXTERNAL_4CH_I2C
 
     steps:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
 
-      - name: Install Dependancies
-        run: sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib
+      - name: Install Dependencies
+        run: sudo apt install -y cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib
 
       - name: Get Pico SDK
         run: git clone --branch 2.1.0 --recurse-submodules https://github.com/raspberrypi/pico-sdk.git
 
-      - name: Create Build Folder
-        run: |
-          mkdir build
-          mkdir output
+      - name: Create Build and Output Folders
+        run: mkdir -p build output
 
-      - name: Build OGX-Mini - PI_PICO
+      - name: Build OGX-Mini - ${{ matrix.board }}
         run: |
-          cd ${{ github.workspace }}/build
-          rm -fr ./*
-          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DCMAKE_BUILD_TYPE=Release -DOGXM_BOARD=PI_PICO -DMAX_GAMEPADS=1 ../Firmware/RP2040 
+          cd build
+          rm -rf ./*
+          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk \
+                -DCMAKE_BUILD_TYPE=Release \
+                -DOGXM_BOARD=${{ matrix.board }} \
+                -DMAX_GAMEPADS=1 \
+                ../Firmware/RP2040
           cmake --build .
-          cp ${{ github.workspace }}/build/OGX-Mini-v1.0.0a3-PI_PICO.uf2 ${{ github.workspace }}/output/OGX-Mini-v1.0.0a3-PI_PICO.uf2
 
-      - name: Build OGX-Mini - PI_PICO2
-        run: |
-          cd ${{ github.workspace }}/build
-          rm -fr ./*
-          ccmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DCMAKE_BUILD_TYPE=Release -DOGXM_BOARD=PI_PICO2 -DMAX_GAMEPADS=1 ../Firmware/RP2040
-          cmake --build .
-          cp ${{ github.workspace }}/build/OGX-Mini-v1.0.0a3-PI_PICO2.uf2 ${{ github.workspace }}/output/OGX-Mini-v1.0.0a3-PI_PICO2.uf2
+          # Move the generated .uf2 file to output/ without knowing the exact version
+          FILE=$(find . -maxdepth 1 -name "OGX-Mini-*-${{ matrix.board }}.uf2" | head -n 1)
+          cp "$FILE" ../output/
 
-      - name: Build OGX-Mini - PI_PICOW
-        run: |
-          cd ${{ github.workspace }}/build
-          rm -fr ./*
-          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DCMAKE_BUILD_TYPE=Release -DOGXM_BOARD=PI_PICOW -DMAX_GAMEPADS=1 ../Firmware/RP2040
-          cmake --build .
-          cp ${{ github.workspace }}/build/OGX-Mini-v1.0.0a3-PI_PICOW.uf2 ${{ github.workspace }}/output/OGX-Mini-v1.0.0a3-PI_PICOW.uf2
+      - name: Upload UF2 Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: uf2-${{ matrix.board }}
+          path: output/*.uf2
 
-      - name: Build OGX-Mini - PI_PICO2W
-        run: |
-          cd ${{ github.workspace }}/build
-          rm -fr ./*
-          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DCMAKE_BUILD_TYPE=Release -DOGXM_BOARD=PI_PICO2W -DMAX_GAMEPADS=1 ../Firmware/RP2040
-          cmake --build .
-          cp ${{ github.workspace }}/build/OGX-Mini-v1.0.0a3-PI_PICO2W.uf2 ${{ github.workspace }}/output/OGX-Mini-v1.0.0a3-PI_PICO2W.uf2
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/')
 
-      - name: Build OGX-Mini - RP2040_ZERO
-        run: |
-          cd ${{ github.workspace }}/build
-          rm -fr ./*
-          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DCMAKE_BUILD_TYPE=Release -DOGXM_BOARD=RP2040_ZERO -DMAX_GAMEPADS=1 ../Firmware/RP2040
-          cmake --build .
-          cp ${{ github.workspace }}/build/OGX-Mini-v1.0.0a3-RP2040_ZERO.uf2 ${{ github.workspace }}/output/OGX-Mini-v1.0.0a3-RP2040_ZERO.uf2
-
-      - name: Build OGX-Mini - ADAFRUIT_FEATHER
-        run: |
-          cd ${{ github.workspace }}/build
-          rm -fr ./*
-          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DCMAKE_BUILD_TYPE=Release -DOGXM_BOARD=ADAFRUIT_FEATHER -DMAX_GAMEPADS=1 ../Firmware/RP2040
-          cmake --build .
-          cp ${{ github.workspace }}/build/OGX-Mini-v1.0.0a3-ADAFRUIT_FEATHER.uf2 ${{ github.workspace }}/output/OGX-Mini-v1.0.0a3-ADAFRUIT_FEATHER.uf2
-
-      - name: Build OGX-Mini - ESP32_BLUEPAD32_I2C
-        run: |
-          cd ${{ github.workspace }}/build
-          rm -fr ./*
-          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DCMAKE_BUILD_TYPE=Release -DOGXM_BOARD=ESP32_BLUEPAD32_I2C -DMAX_GAMEPADS=1 ../Firmware/RP2040
-          cmake --build .
-          cp ${{ github.workspace }}/build/OGX-Mini-v1.0.0a3-ESP32_BLUEPAD32_I2C.uf2 ${{ github.workspace }}/output/OGX-Mini-v1.0.0a3-ESP32_BLUEPAD32_I2C.uf2
-
-      - name: Build OGX-Mini - ESP32_BLUERETRO_I2C
-        run: |
-          cd ${{ github.workspace }}/build
-          rm -fr ./*
-          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DCMAKE_BUILD_TYPE=Release -DOGXM_BOARD=ESP32_BLUERETRO_I2C -DMAX_GAMEPADS=1 ../Firmware/RP2040
-          cmake --build .
-          cp ${{ github.workspace }}/build/OGX-Mini-v1.0.0a3-ESP32_BLUERETRO_I2C.uf2 ${{ github.workspace }}/output/OGX-Mini-v1.0.0a3-ESP32_BLUERETRO_I2C.uf2
-
-      - name: Build OGX-Mini - EXTERNAL_4CH_I2C
-        run: |
-          cd ${{ github.workspace }}/build
-          rm -fr ./*
-          cmake -DPICO_SDK_PATH=${{ github.workspace }}/pico-sdk -DCMAKE_BUILD_TYPE=Release -DOGXM_BOARD=EXTERNAL_4CH_I2C -DMAX_GAMEPADS=1 ../Firmware/RP2040
-          cmake --build .
-          cp ${{ github.workspace }}/build/OGX-Mini-v1.0.0a3-EXTERNAL_4CH_I2C.uf2 ${{ github.workspace }}/output/OGX-Mini-v1.0.0a3-EXTERNAL_4CH_I2C.uf2
+    steps:
+      - name: Download All Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: output
 
       - name: List Files
-        run: ls ${{ github.workspace }}/build
+        run: ls -lh output/**
 
       - name: Create Draft Release
         uses: softprops/action-gh-release@v2.2.2
+        if: github.ref == 'refs/heads/main'
         with:
           tag_name: latest
           draft: true
-          files: |
-            ${{ github.workspace }}/output/*.uf2
+          files: output/**/*.uf2
 
-      - name: Create Release
+      - name: Create Tagged Release
         uses: softprops/action-gh-release@v2.2.2
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: |
-            ${{ github.workspace }}/output/*.uf2
+          files: output/**/*.uf2
